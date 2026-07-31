@@ -35,6 +35,38 @@
   --max-width: 1140px;
 }
 
+/* ---------- Light theme override ---------- */
+/* Toggled by adding data-theme="light" to <html> via script.js */
+html[data-theme="light"] {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef0f7;
+  --border: #dfe3ee;
+
+  --text: #171a2b;
+  --text-muted: #565f7a;
+  --text-faint: #8991ac;
+
+  --shadow-glow: 0 0 0 1px rgba(108, 92, 231, 0.12), 0 20px 50px -20px rgba(108, 92, 231, 0.2);
+}
+
+/* Smooth crossfade when switching themes */
+body,
+.navbar,
+.section,
+.skill-card,
+.project-card,
+.timeline-card,
+.about-card,
+.contact-form,
+.contact-info-item,
+.cert-card,
+.badge,
+.social-icon,
+.icon-link {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
 /* ---------- Reset ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -238,6 +270,36 @@ input, textarea { font: inherit; }
 
 .nav-cta { margin-left: 8px; }
 
+.theme-toggle {
+  position: relative;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent-2);
+  transform: translateY(-2px);
+}
+.theme-icon-sun,
+.theme-icon-moon {
+  position: absolute;
+  font-size: 1rem;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+/* Dark theme (default): show the moon, hide the sun */
+.theme-icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+.theme-icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* Light theme: show the sun, hide the moon */
+html[data-theme="light"] .theme-icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+html[data-theme="light"] .theme-icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -325,11 +387,12 @@ input, textarea { font: inherit; }
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
-  background: linear-gradient(180deg, #fff, #b9c0d4);
+  background: linear-gradient(180deg, var(--text), var(--text-muted));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin-bottom: 14px;
+  transition: background 0.4s ease;
 }
 
 .hero-role {
