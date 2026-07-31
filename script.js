@@ -11,6 +11,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Light / dark theme toggle ---------- */
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const THEME_KEY = 'subinram-portfolio-theme';
+
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
+  const applyTheme = (theme) => {
+    if (theme === 'light') {
+      root.setAttribute('data-theme', 'light');
+      themeToggle.setAttribute('aria-label', 'Switch to dark theme');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#f6f7fb');
+    } else {
+      root.removeAttribute('data-theme');
+      themeToggle.setAttribute('aria-label', 'Switch to light theme');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#0b0f1a');
+    }
+  };
+
+  // Priority: saved choice > system preference > default dark
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    applyTheme('light');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    const next = isLight ? 'dark' : 'light';
+    applyTheme(next);
+    localStorage.setItem(THEME_KEY, next);
+  });
+
   /* ---------- Navbar scrolled state + scroll progress ---------- */
   const navbar = document.getElementById('navbar');
   const scrollProgress = document.getElementById('scrollProgress');
