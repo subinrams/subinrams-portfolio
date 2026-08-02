@@ -785,6 +785,15 @@ html[data-theme="light"] .theme-icon-moon { opacity: 0; transform: rotate(90deg)
 .project-card-placeholder i { font-size: 1.8rem; color: var(--accent); margin-bottom: 6px; }
 .project-card-placeholder h3 { color: var(--text-muted); }
 
+.project-link-note a {
+  color: var(--accent-2);
+  transition: color 0.35s ease;
+}
+.project-link-note a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 /* ============================================================
    CERTIFICATIONS
    ============================================================ */
